@@ -6,7 +6,7 @@ import (
 	"strconv"
 	"strings"
 
-	"finance-service/utils"
+	"finance-service/internal/utils"
 
 	"github.com/gofiber/fiber/v2"
 )

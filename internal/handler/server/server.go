@@ -3,8 +3,8 @@ package server
 import (
 	"database/sql"
 	"errors"
-	"finance-service/middleware"
-	"finance-service/utils"
+	"finance-service/internal/middleware"
+	"finance-service/internal/utils"
 	"log"
 
 	"github.com/gofiber/fiber/v2"
