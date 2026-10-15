@@ -6,8 +6,8 @@ import (
 	"finance-service/internal/controller"
 	"finance-service/internal/handler/server"
 	"finance-service/internal/migration"
+	"finance-service/internal/utils"
 	"finance-service/repository"
-	"finance-service/utils"
 	"log"
 	"net"
 	"os"
@@ -28,7 +28,7 @@ func main() {
 	log.Println("Berhasil terhubung ke database PostgresSQL!")
 
 	//matikan jika migrasi tidak digunakan
-	migrationDatabase(db)
+	// migrationDatabase(db)
 
 	jwtManager, err := utils.NewJwtManager()
 	if err != nil {
