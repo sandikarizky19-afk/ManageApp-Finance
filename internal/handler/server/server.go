@@ -72,8 +72,15 @@ func errorHandler(c *fiber.Ctx, err error) error {
 
 func (s *Server) setupRoutes(jwtManager *utils.JWTManager) {
 
+	//controller
 	accountTypesController := controller.NewAccountTypesController(s.DB, jwtManager)
+	accountBalanceController := controller.NewAccountBalanceController(s.DB, jwtManager)
+	savingsController := controller.NewSavingsController(s.DB, jwtManager)
+
+	// handlers
 	accountTypesHandler := handler.NewAccountTypesHandler(accountTypesController)
+	accountBalanceHandler := handler.NewAccountBalanceHandler(accountBalanceController)
+	savingsHandler := handler.NewSavingsHandler(savingsController)
 
 	api := s.App.Group("/api/v1")
 
@@ -90,8 +97,14 @@ func (s *Server) setupRoutes(jwtManager *utils.JWTManager) {
 	finance.Get("/account-types", accountTypesHandler.GetAccountTypes)
 	finance.Post("/account-types", accountTypesHandler.CreateAccountTypes)
 	finance.Put("/account-types/:id", accountTypesHandler.UpdateAccountTypes)
-	finance.Delete("/account-types/:id", accountTypesHandler.DeleteAccountTypes)
+	finance.Delete("/account-types/:id", accountTypesHandler.DeleteAccountType)
 
+	finance.Post("/account-balance/topup", accountBalanceHandler.AddBalance)
+	finance.Get("/account-balance", accountBalanceHandler.GetBalance)
+	finance.Post("/account-balance/transfer", accountBalanceHandler.TransferBalance)
+
+	finance.Post("/savings", savingsHandler.CreateSavings)
+	finance.Get("/savings", savingsHandler.GetAllSavings)
 }
 
 func (s *Server) Listen(addr string) error {

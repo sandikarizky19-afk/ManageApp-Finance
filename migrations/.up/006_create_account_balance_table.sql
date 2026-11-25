@@ -12,9 +12,9 @@ CREATE TABLE IF NOT EXISTS account_balance (
     deleted_at TIMESTAMPTZ NULL
 );
 
-CREATE INDEX idx_account_balance_user
+CREATE INDEX IF NOT EXISTS idx_account_balance_user
     ON account_balance(user_id);
 
-CREATE UNIQUE INDEX uq_user_main_account
+CREATE UNIQUE INDEX IF NOT EXISTS uq_user_main_account
     ON account_balance(user_id)
     WHERE account_type = 'main' AND deleted_at IS NULL;

@@ -31,9 +31,9 @@ CREATE TABLE IF NOT EXISTS balance_transactions (
     UNIQUE (user_id, reference_id)
 );
 
-CREATE INDEX idx_bt_user_date
+CREATE INDEX IF NOT EXISTS idx_bt_user_date
     ON balance_transactions(user_id, occurred_at DESC);
-CREATE INDEX idx_bt_from_account_date
+CREATE INDEX IF NOT EXISTS idx_bt_from_account_date
     ON balance_transactions(from_account_id, occurred_at DESC);
-CREATE INDEX idx_bt_to_account_date
+CREATE INDEX IF NOT EXISTS idx_bt_to_account_date
     ON balance_transactions(to_account_id, occurred_at DESC);

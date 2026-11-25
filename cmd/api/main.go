@@ -14,6 +14,8 @@ import (
 	"os/signal"
 	"syscall"
 	"time"
+
+	"github.com/shopspring/decimal"
 )
 
 func main() {
@@ -28,7 +30,7 @@ func main() {
 	log.Println("Berhasil terhubung ke database PostgresSQL!")
 
 	//matikan jika migrasi tidak digunakan
-	// migrationDatabase(db)
+	migrationDatabase(db)
 
 	jwtManager, err := utils.NewJwtManager()
 	if err != nil {
@@ -62,6 +64,9 @@ func main() {
 		log.Fatalf("Gagal shutdown server dengan rapi: %v", err)
 	}
 	log.Println("Server finance berhasil dimatikan.")
+
+	// Memaksa JSON marshal untuk mengembalikan angka (number) alih-alih string
+	decimal.MarshalJSONWithoutQuotes = true
 }
 
 func migrationDatabase(db *sql.DB) {

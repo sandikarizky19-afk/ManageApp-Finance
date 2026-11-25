@@ -1,0 +1,12 @@
+CREATE TABLE IF NOT EXISTS savings (
+   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+   user_id BIGINT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+   title VARCHAR(100) NOT NULL,
+   icon VARCHAR(50),
+   target_amount NUMERIC(15,2) NOT NULL,
+   current_amount NUMERIC(15,2) NOT NULL DEFAULT 0,
+   is_completed BOOLEAN NOT NULL DEFAULT FALSE,
+   created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+   updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+   deleted_at TIMESTAMPTZ NULL
+);
